@@ -1,0 +1,10 @@
+> build instructions:
+
+    $ make HOST_CC="gcc -m32" TARGET_FLAGS="-D__PSP__ -DLUAJIT_USE_SYSMALLOC" CROSS=psp- BUILDMODE=static
+
+compilation will abort after creating libluajit.a, nothing to worry about.
+
+> install instructions:
+
+    # cp src/lauxlib.h src/lua.h src/lua.hpp src/luaconf.h src/luajit.h src/lualib.h $(psp-config -P)/include
+    # cp src/libluajit.a $(psp-config -P)/lib

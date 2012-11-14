@@ -43,6 +43,10 @@ void lj_mcode_sync(void *start, void *end)
   sys_icache_invalidate(start, (char *)end-(char *)start);
 #elif LJ_TARGET_PPC
   lj_vm_cachesync(start, end);
+#elif defined(__PSP__)
+  void sceKernelIcacheInvalidateRange(const void *addr, unsigned int size);
+  
+  sceKernelIcacheInvalidateRange(start, (char *)end-(char *)start);
 #elif defined(__GNUC__)
   __clear_cache(start, end);
 #else
