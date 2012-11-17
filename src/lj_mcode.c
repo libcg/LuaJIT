@@ -44,9 +44,8 @@ void lj_mcode_sync(void *start, void *end)
 #elif LJ_TARGET_PPC
   lj_vm_cachesync(start, end);
 #elif defined(__PSP__)
-  void sceKernelIcacheInvalidateRange(const void *addr, unsigned int size);
-  
-  sceKernelIcacheInvalidateRange(start, (char *)end-(char *)start);
+  /* That's not what we want because it clears the whole Icache */
+  asm("cache 8, 0($v0)\n");
 #elif defined(__GNUC__)
   __clear_cache(start, end);
 #else
